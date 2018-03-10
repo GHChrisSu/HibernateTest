@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<!-- 注意 package 的路径变化 -->
+<hibernate-mapping package="shiyanlou.hibernate.manytomany.entity">
+
+    <class name="Course" table="course_table">
+
+        <!-- 设置 id 自增 -->
+        <id name="cou_id" column="cou_id">
+            <generator class="native"></generator>
+        </id>
+        <property name="cou_name" column="cou_name"></property>
+
+        <!-- 注意这里没有设置 inverse，表示由  Course 来维护关联关系-->
+        <set name="students" cascade="save-update" table="sc_table">
+             <key column="cou_id" not-null="true"></key>
+             <many-to-many class="Student" column="stu_id" ></many-to-many>  
+        </set> 
+    </class>
+
+
+
+</hibernate-mapping>
